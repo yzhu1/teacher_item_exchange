@@ -120,6 +120,20 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<script>
+				function save_question(book_sid, question) {
+					var qlist_str = localStorage.getItem(book_sid)
+					var qlist = new Array()
+					if(qlist_str!=null && qlist_str.length > 0) {
+						qlist = JSON.parse(qlist_str);
+						qlist.push(question);
+					} else {
+						qlist.push(question)
+					}
+					list_str = JSON.stringify(qlist)
+					localStorage.setItem(book_sid, list_str)
+				}
+			</script>
 
 	</body>
 </html>
