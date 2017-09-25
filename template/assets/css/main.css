@@ -56,7 +56,7 @@
 	}
 
 /* Containers */
-
+	.clear{clear:both;}
 	.container {
 		margin-left: auto;
 		margin-right: auto;
@@ -1081,7 +1081,7 @@
 	}
 
 	h1, h2, h3, h4 {
-		color: #007897;
+		color: #f37321;
 		font-weight: normal;
 	}
 
