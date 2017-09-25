@@ -1,0 +1,68 @@
+<!doctype html>
+    <head>
+        <title>Teacher Item Exchange</title>
+        <script src="jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+        <input type="file" id="files" name="files[]" multiple />
+        <output id="list"></output>
+
+        <table>
+            <caption>
+                <p>Book List</p>
+            </caption>
+            <thead>
+                <tr>
+                    <td>Book ID</td>
+                    <td>Title</td>
+                    <td>Author</td>
+                </tr>
+            </thead>
+            <tbody id="book_list">
+            </tbody>
+        </table>
+
+        <script>
+            function handleFileSelect(evt) {
+                var files = evt.target.files; // FileList object
+
+                if (window.FileReader) {
+                    getAsText(files[0]);
+                } else {
+                    alert('FileReader are not supported in this browser.');
+                }
+            }
+
+            function getAsText(fileToRead) {
+                  var reader = new FileReader();
+                  // Read file into memory as UTF-8
+                  reader.readAsText(fileToRead);
+                  // Handle errors load
+                  reader.onload = loadHandler;
+                  reader.onerror = errorHandler;
+            }
+
+            function loadHandler(event) {
+              var csv = event.target.result;
+              processData(csv);
+            }
+
+            function processData(csv) {
+                var allTextLines = csv.split(/\r\n|\n/);
+                var lines = [];
+                for (var i=1; i<allTextLines.length-1; i++) {
+                    var data = allTextLines[i].split(',');
+                    $('#book_list').append("<tr><td>" + data[0] + "</td><td>" + data[1] + "</td><td>"+ data[2] + "</td></tr>")
+                }
+            }
+
+            function errorHandler(evt) {
+              if(evt.target.error.name == "NotReadableError") {
+                  alert("Canno't read file !");
+              }
+            }
+
+          document.getElementById('files').addEventListener('change', handleFileSelect, false);
+        </script>
+    </body>
+</html>
