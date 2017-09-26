@@ -40,7 +40,7 @@
                     var data = allTextLines[i].split(',');
                     var book = {}
                     book["id"] = data[0]
-                    book["title"] =  data[1].replace(/"/g, "");
+                    book["title"] =  data[1]
                     book["author"] = data[2]
                     book["reading_level"] = data[3]
                     books.push(book)
