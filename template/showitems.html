@@ -56,25 +56,31 @@
 			<script>
 				$( document ).ready(function() {
 					var url = new URL(window.location.href);
-					var book_sid = url.searchParams.get("id");
-					questions = JSON.parse(localStorage.getItem(book_sid))
-					if(questions!=null) {
-						for(var i=0;i<questions.length;i++)
-						{
-							$('#question_list').append("<li>" + questions[i] + "</li>")
-						}
-					}
-					books = JSON.parse(localStorage.books);
-					for (var i = 0; i < books.length; i++) {
-						book = books[i];
-						if (book_sid == book.id) {
-							book_title = book.title
-						}
-					}
-					count = questions==null?0:questions.length;
-					$('#summary').text("There are " + count + " questions for the book: " + book_title)
-				});
+					var book_id = url.searchParams.get("id");
+					var qstring = localStorage["questions"]
+					if(qstring!=null) {
+						var questions = JSON.parse(qstring);
+						var book_questions = questions[book_id]
 
+						for(var i=0;i<book_questions.length;i++)
+						{
+							var q = book_questions[i];
+							var type = q["type"];
+							var q_text = q["question"];
+							var a_text = q["answer"];
+							var rating = q["rating"]
+
+							var html = "<li><div>";
+							html += "<p>Q: " + q_text + "</p>";
+							html += "<p>A: " + a_text + "</p>";
+							html += "<p>" + type + " - " + rating + " stars </p>";
+							html += "</div></li>"
+							$('#question_list').append(html)
+						}
+					}
+					count = book_questions==null?0:book_questions.length;
+					$('#summary').text("There are " + count + " questions for Book " + book_sid)
+				});
 			</script>
 	</body>
 </html>
