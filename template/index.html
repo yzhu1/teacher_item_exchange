@@ -35,18 +35,16 @@
 			</div>
 			<div id="main">
 				<div class="container">
-					<table>
+					<table class="items">
 						<caption>
 							<p>Book List</p>
 						</caption>
-						<thead>
-							<tr>
-								<td>Book ID</td>
-								<td>Title</td>
-								<td>Author</td>
-								<td>Reading Level</td>
-							</tr>
-						</thead>
+						<tr>
+							<th class="items">Book ID</th>
+							<th class="items">Title</th>
+							<th class="items">Author</th>
+							<th class="items">Reading Level</th>
+						</tr>
 						<tbody id="book_list">
 						</tbody>
 					</table>
@@ -66,7 +64,7 @@
 					books = JSON.parse(localStorage["books"])
 					for (var i = 0; i < books.length; i++) {
 						book = books[i]
-                    	$('#book_list').append("<tr><td>" + book["id"] + "</td><td><a href='showitems.html?id=" + book["id"] + "'>" + book["title"] + "</a></td><td>"+ book["author"] + "</td><td>"+ book["reading_level"] + "</td></tr>")
+                    	$('#book_list').append("<tr><td class=\"items\">" + book["id"] + "</td><td class=\"items\"><a href='showitems.html?id=" + book["id"] + "'>" + book["title"] + "</a></td><td class=\"items\">"+ book["author"] + "</td><td class=\"items\">"+ book["reading_level"] + "</td></tr>")
                 	}
 				}
 
