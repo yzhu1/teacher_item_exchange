@@ -47,6 +47,11 @@
 		-webkit-text-size-adjust: none;
 	}
 
+	h4.right {
+		text-align: right;
+		color: #fefefe;
+	}
+
 /* Box Model */
 
 	*, *:before, *:after {
