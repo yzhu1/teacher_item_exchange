@@ -11,6 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/rating.css">
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 	</head>
 	<body>
@@ -38,18 +39,12 @@
 				<div class="container">
 					<div class="row main-row">
 						<div class="12u">
-							<table class="items">
+							<table id="question_list" class="items">
 								<tr>
 									<th class="items">Book Title</th>
 									<th class="items">Comprehension Items</th>
 									<th class="items">Possible Answer(s)</th>
 									<th class="items">Item Type</th>
-								</tr>
-								<tr>
-									<td class="items">Test Book</td>
-									<td class="items">What is the theme of the book?</td>
-									<td class="items">This is a test book</td>
-									<td class="items">Literal</td>
 								</tr>
 							</table>
 						</div>
@@ -65,6 +60,42 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/rating.js"></script>
+			<script>
+				$( document ).ready(function() {
+					var qstring = localStorage["questions"]
+					var question_ctr = 0
+					if(qstring!=null) {
+						var questions = JSON.parse(qstring);
+						for (var key in questions) {
+							var book_questions = questions[key]
+							for(var i=0;i<book_questions.length;i++)
+							{
+								question_ctr = question_ctr + 1
+								var q = book_questions[i];
+								var type = q["type"];
+								var q_text = q["question"];
+								var a_text = q["answer"];
+								var q_rating = q["rating"]
 
+								rating_id = "rating" + question_ctr
+
+								var html = "<tr>";
+								html += "<td class=\"items\">" + q_text + "</td>";
+								html += "<td class=\"items\">" + a_text + "</td>";
+								html += "<td class=\"items\">" + type + "</td>";
+								html += "<td id=\"" +rating_id+ "\" class=\"items c-rating\"></td>";
+								html += "</tr>"
+								$('#question_list').append(html)
+								var ratingElement = document.querySelector("#"+rating_id);
+      							var currentRating = q_rating;
+      							var maxRating = 5;
+      							var callback = function(rating) {};
+      							var r = rating(ratingElement, currentRating, maxRating, callback);
+							}
+						}
+					}
+				});
+			</script>
 	</body>
 </html>

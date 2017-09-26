@@ -78,14 +78,16 @@
 							var a_text = q["answer"];
 							var q_rating = q["rating"]
 
+							var rating_id = "rating" + i
+
 							var html = "<tr>";
 							html += "<td class=\"items\">" + q_text + "</td>";
 							html += "<td class=\"items\">" + a_text + "</td>";
 							html += "<td class=\"items\">" + type + "</td>";
-							html += "<td id=\"rating\" class=\"c-rating\"></td>";
+							html += "<td id='" +rating_id +"'  class=\"items c-rating\"></td>";
 							html += "</tr>"
 							$('#question_list').append(html)
-							var ratingElement = document.querySelector('#rating');
+							var ratingElement = document.querySelector("#" + rating_id);
       						var currentRating = q_rating;
       						var maxRating = 5;
       						var callback = function(rating) {};
