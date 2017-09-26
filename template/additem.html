@@ -137,11 +137,13 @@
 			<script>
 				function save_question(event) {
 					var book_id = $("#book_list").find(":selected").attr("value");
+					var book_title = $("#book_list :selected").text();
 					var new_question = $("#question").val();
 					var new_answer = $("#answer").val();
 					var type = $("#type_list").find(":selected").attr("value");
 
 					q = {};
+					q["book_title"] = book_title;
 					q["question"] = new_question;
 					q["answer"] = new_answer;
 					q["type"] = type;

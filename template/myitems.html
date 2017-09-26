@@ -45,6 +45,7 @@
 									<th class="items">Comprehension Items</th>
 									<th class="items">Possible Answer(s)</th>
 									<th class="items">Item Type</th>
+									<th class="items">Rating</th>
 								</tr>
 							</table>
 						</div>
@@ -73,6 +74,7 @@
 							{
 								question_ctr = question_ctr + 1
 								var q = book_questions[i];
+								var book_title = q["book_title"]
 								var type = q["type"];
 								var q_text = q["question"];
 								var a_text = q["answer"];
@@ -81,6 +83,7 @@
 								rating_id = "rating" + question_ctr
 
 								var html = "<tr>";
+								html += "<td class=\"items\">" + book_title + "</td>";
 								html += "<td class=\"items\">" + q_text + "</td>";
 								html += "<td class=\"items\">" + a_text + "</td>";
 								html += "<td class=\"items\">" + type + "</td>";

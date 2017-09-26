@@ -41,6 +41,7 @@
 					<div>
 						<table id="question_list" class="items">
 							<tr>
+								<th class="items">Book Title</th>
 								<th class="items">Question</th>
 								<th class="items">Answer(s)</th>
 								<th class="items">Type</th>
@@ -73,6 +74,7 @@
 						for(var i=0;i<book_questions.length;i++)
 						{
 							var q = book_questions[i];
+							var book_title = q["book_title"]
 							var type = q["type"];
 							var q_text = q["question"];
 							var a_text = q["answer"];
@@ -81,6 +83,7 @@
 							var rating_id = "rating" + i
 
 							var html = "<tr>";
+							html += "<td class=\"items\">" + book_title + "</td>";
 							html += "<td class=\"items\">" + q_text + "</td>";
 							html += "<td class=\"items\">" + a_text + "</td>";
 							html += "<td class=\"items\">" + type + "</td>";
