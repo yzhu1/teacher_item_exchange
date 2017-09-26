@@ -1,0 +1,82 @@
+<!doctype html>
+    <head>
+        <title>Teacher Item Exchange</title>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+        <input type="file" id="files" name="files[]" multiple />
+
+        <script>
+            function handleFileSelect(evt) {
+                var files = evt.target.files; // FileList object
+
+                if (window.FileReader) {
+                    getAsText(files[0]);
+                } else {
+                    alert('FileReader are not supported in this browser.');
+                }
+                window.location.href="index.html"
+            }
+
+            function getAsText(fileToRead) {
+                  var reader = new FileReader();
+                  // Read file into memory as UTF-8
+                  reader.readAsText(fileToRead);
+                  // Handle errors load
+                  reader.onload = loadHandler;
+                  reader.onerror = errorHandler;
+            }
+
+            function loadHandler(event) {
+              var csv = event.target.result;
+              processData(csv);
+            }
+
+            function processData(csv) {
+                var allTextLines = csv.split(/\r\n|\n/);
+                var lines = [];
+                var books = []
+                for (var i=1; i<allTextLines.length-1; i++) {
+                    var data = allTextLines[i].split(',');
+                    var book = {}
+                    book["id"] = data[0]
+                    book["title"] =  data[1].replace(/"/g, "");
+                    book["author"] = data[2]
+                    book["reading_level"] = data[3]
+                    books.push(book)
+                }
+                localStorage.clear()
+                localStorage.setItem("books", JSON.stringify(books))
+                save_rl_book_map();
+            }
+
+            function save_rl_book_map(){
+                books = JSON.parse(localStorage.getItem("books"))
+                map = {}
+                book_count = books.length
+                if(books!=null && book_count>0){
+                    for (var i = 0; i < book_count; i++) {
+                        book = books[i]
+                        id = book["id"]
+                        rl = book["reading_level"]
+                        rl_books = map[rl]
+                        if(rl_books==null) {
+                            map[rl] = [book]
+                        } else {
+                            map[rl].push(book)
+                        }
+                    }
+                    localStorage.setItem("rl_book_map", JSON.stringify(map))
+                }
+            }
+
+            function errorHandler(evt) {
+              if(evt.target.error.name == "NotReadableError") {
+                  alert("Canno't read file !");
+              }
+            }
+
+            document.getElementById('files').addEventListener('change', handleFileSelect, false);
+        </script>
+    </body>
+</html>

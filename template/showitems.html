@@ -56,7 +56,7 @@
 			<script>
 				$( document ).ready(function() {
 					var url = new URL(window.location.href);
-					var book_sid = url.searchParams.get("book_sid");
+					var book_sid = url.searchParams.get("id");
 					questions = JSON.parse(localStorage.getItem(book_sid))
 					if(questions!=null) {
 						for(var i=0;i<questions.length;i++)
