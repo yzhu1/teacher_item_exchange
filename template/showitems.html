@@ -11,6 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/rating.css">
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 	</head>
 	<body>
@@ -38,8 +39,14 @@
 				<div class="container">
 					<div><p id="summary"></p></div>
 					<div>
-						<ul id="question_list">
-						</ul>
+						<table id="question_list" class="items">
+							<tr>
+								<th class="items">Question</th>
+								<th class="items">Answer(s)</th>
+								<th class="items">Type</th>
+								<th class="items">Rating</th>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -53,6 +60,7 @@
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
 			<script src="../jquery-3.2.1.min.js"></script>
+			<script src="assets/js/rating.js"></script>
 			<script>
 				$( document ).ready(function() {
 					var url = new URL(window.location.href);
@@ -68,18 +76,22 @@
 							var type = q["type"];
 							var q_text = q["question"];
 							var a_text = q["answer"];
-							var rating = q["rating"]
+							var q_rating = q["rating"]
 
-							var html = "<li><div>";
-							html += "<p>Q: " + q_text + "</p>";
-							html += "<p>A: " + a_text + "</p>";
-							html += "<p>" + type + " - " + rating + " stars </p>";
-							html += "</div></li>"
+							var html = "<tr>";
+							html += "<td class=\"items\">" + q_text + "</td>";
+							html += "<td class=\"items\">" + a_text + "</td>";
+							html += "<td class=\"items\">" + type + "</td>";
+							html += "<td id=\"rating\" class=\"items c-rating\"></td>";
+							html += "</tr>"
 							$('#question_list').append(html)
+							var ratingElement = document.querySelector('#rating');
+      						var currentRating = q_rating;
+      						var maxRating = 5;
+      						var callback = function(rating) {};
+      						var r = rating(ratingElement, currentRating, maxRating, callback);
 						}
 					}
-					count = book_questions==null?0:book_questions.length;
-					$('#summary').text("There are " + count + " questions")
 				});
 			</script>
 	</body>
