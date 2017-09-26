@@ -77,14 +77,15 @@
 							var q_text = q["question"];
 							var a_text = q["answer"];
 							var q_rating = q["rating"]
+							var q_id = q["id"]
 
-							var rating_id = "rating" + i
+							var rating_id = "rating" + i;
 
 							var html = "<tr>";
 							html += "<td class=\"items\">" + q_text + "</td>";
 							html += "<td class=\"items\">" + a_text + "</td>";
 							html += "<td class=\"items\">" + type + "</td>";
-							html += "<td class=\"items\"><div id='"+rating_id +"' class=\"c-rating\"></div></td>";
+							html += "<td class=\"items\"><div id='"+rating_id +"' class=\"c-rating\" onClick=\"vote(" + q_id + ")\"></div></td>";
 							html += "</tr>";
 							$('#question_list').append(html)
 							var ratingElement = document.querySelector("#" + rating_id);
@@ -95,6 +96,37 @@
 						}
 					}
 				});
+
+				function vote(id) {
+			        var new_vote = $("#rating" + id).children(".is-active").length;
+			        var qs = JSON.parse(localStorage["questions"]);
+			        var q = null;
+			        var cont = true;
+                    for (var key in qs) {
+                        book_qs = qs[key];
+                        for(var i = 0; i < book_qs.length; i++) {
+                            q = book_qs[i];
+                            if(q["id"]==id) {
+                                cont = false;
+                                break;
+                            }
+                        }
+                        if(!cont) {
+                            break;
+                        }
+                    }
+                    var rating = q["rating"];
+                    var vote_count = q["vote_count"];
+                    var new_vote_count = vote_count + 1;
+                    var new_rating = (rating*vote_count+new_vote)/new_vote_count;
+                    q["rating"] = new_rating;
+                    q["vote_count"] = new_vote_count;
+                    localStorage.setItem("questions", JSON.stringify(qs))
+                    var maxRating = 5;
+                    var callback = function(rating) {};
+                    var ratingElement = document.querySelector("#rating" + id);
+                    var r = rating(ratingElement, Math.round(new_rating), maxRating, callback);
+			    }
 			</script>
 	</body>
 </html>

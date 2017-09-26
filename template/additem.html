@@ -141,11 +141,18 @@
 					var new_answer = $("#answer").val();
 					var type = $("#type_list").find(":selected").attr("value");
 
+                    var q_seq = localStorage["q_seq"];
+                    if(q_seq==null){
+                        q_seq = 0;
+                    }
+
 					q = {};
 					q["question"] = new_question;
 					q["answer"] = new_answer;
 					q["type"] = type;
 					q["rating"] = 3;
+					q["vote_count"] = 1;
+					q["id"] = q_seq++;
 
 					var qstring = localStorage["questions"];
 					var questions = null;
@@ -163,6 +170,7 @@
 					book_questions.push(q);
 					questions[book_id] = book_questions;
 					localStorage.setItem("questions", JSON.stringify(questions));
+					localStorage.setItem("q_seq", q_seq);
 				}
 			</script>
 			
