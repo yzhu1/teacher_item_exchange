@@ -47,6 +47,11 @@
 		-webkit-text-size-adjust: none;
 	}
 
+	input.right {
+		position: absolute;
+    	right: 100px;
+	}
+
 	h4.right {
 		text-align: right;
 		color: #fefefe;
