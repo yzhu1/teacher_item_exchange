@@ -53,9 +53,11 @@
 	}
 
 	table.items {
+		border-collapse:separate;
 		border: 1px solid #f37321;
 		width: 100%;
 		table-layout: fixed;
+		border-radius: 5px;
 	}
 
 	th.items {
