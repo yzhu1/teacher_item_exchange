@@ -74,6 +74,7 @@
 							<th class="items">Title</th>
 							<th class="items">Author</th>
 							<th class="items">Reading Level</th>
+                            <th class="items">Item Count</th>
 						</tr>
 						<tbody id="book_list">
 						</tbody>
@@ -92,9 +93,13 @@
 			<script>
 				function load_books() {
 					books = JSON.parse(localStorage["books"])
+					qs = JSON.parse(localStorage["questions"])
 					for (var i = 0; i < books.length; i++) {
 						book = books[i]
-            			$('#book_list').append("<tr><td class=\"items\"><a href='showitems.html?id=" + book["id"] + "'>" + book["title"] + "</a></td><td class=\"items\">"+ book["author"] + "</td><td class=\"items\">"+ book["reading_level"] + "</td></tr>")
+						book_id = book["id"]
+						book_q = qs[book_id]
+						book_q_count = book_q==null?0:book_q.length;
+				$('#book_list').append("<tr><td class=\"items\"><a href='showitems.html?id=" + book_id + "'>" + book["title"] + "</a></td><td class=\"items\">"+ book["author"] + "</td><td class=\"items\">"+ book["reading_level"] + "</td><td class=\"items\">"+ book_q_count + "</td></tr>")
 			        }
 				}
 
@@ -104,7 +109,7 @@
                     for (var i = 0; i < books.length; i++) {
                         book = books[i];
                         if (gr_level.value == book.reading_level || gr_level.value=="-") {
-                            $('#book_list').append("<tr><td class=\"items\"><a href='showitems.html?id=" + book["id"] + "'>" + book["title"] + "</a></td><td class=\"items\">"+ book["author"] + "</td><td class=\"items\">"+ book["reading_level"] + "</td></tr>")
+                            $('#book_list').append("<tr><td class=\"items\"><a href='showitems.html?id=" + book_id + "'>" + book["title"] + "</a></td><td class=\"items\">"+ book["author"] + "</td><td class=\"items\">"+ book["reading_level"] + "</td><td class=\"items\">"+ book_q_count + "</td></tr>")
                         }
                     }
 				}
