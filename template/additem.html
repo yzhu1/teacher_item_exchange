@@ -147,7 +147,7 @@
 					q["question"] = new_question;
 					q["answer"] = new_answer;
 					q["type"] = type;
-					q["rating"] = 3;
+					q["rating"] = Math.floor(Math.random() * (5 - 1 + 1)) + 1;;
 
 					var qstring = localStorage["questions"];
 					var questions = null;
