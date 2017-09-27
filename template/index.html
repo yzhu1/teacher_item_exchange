@@ -93,7 +93,11 @@
 			<script>
 				function load_books() {
 					books = JSON.parse(localStorage["books"])
-					qs = JSON.parse(localStorage["questions"])
+					qstr = localStorage["questions"];
+					qs = {}
+					if(qstr!=null){
+					    qs = JSON.parse(qstr)
+					}
 					for (var i = 0; i < books.length; i++) {
 						book = books[i]
 						book_id = book["id"]
