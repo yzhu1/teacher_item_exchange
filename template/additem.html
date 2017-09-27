@@ -22,9 +22,9 @@
 					for (var i = 0; i < books.length; i++) {
 						book = books[i];
 						if (gr_level.value == book.reading_level) {
-                    			$('#book_list').append("<option value=" + book.id + ">"+book.title + "</option>");
-                    	}
-                	}
+					$('#book_list').append("<option value=" + book.id + ">"+book.title + "</option>");
+			}
+			}
 				}
 		</script>
 		<div id="page-wrapper">
@@ -56,35 +56,35 @@
 								<tr>
 									<td>
 										<select label="grlevel" style="width: 390px" onchange="load_books_for_level(this)">
-										 	<option value="" selected disabled hidden>Choose Level</option>
-  											<option value="PC">PC</option>
-  											<option value="RB">RB</option>
-  											<option value="A">A</option>
-  											<option value="B">B</option>
-  											<option value="C">C</option>
-  											<option value="D">D</option>
-  											<option value="E">E</option>
-  											<option value="F">F</option>
-  											<option value="G">G</option>
-  											<option value="H">H</option>
-  											<option value="I">I</option>
-  											<option value="J">J</option>
-  											<option value="K">K</option>
-  											<option value="L">L</option>
-  											<option value="M">M</option>
-  											<option value="N">N</option>
-  											<option value="O">O</option>
-  											<option value="P">P</option>
-  											<option value="Q">Q</option>
-  											<option value="R">R</option>
-  											<option value="S">S</option>
-  											<option value="T">T</option>
-  											<option value="U">U</option>
-  											<option value="V">V</option>
-  											<option value="W">W</option>
-  											<option value="X">X</option>
-  											<option value="Y">Y</option>
-  											<option value="Z">Z</option>
+											<option value="" selected disabled hidden>Choose Level</option>
+											<option value="PC">PC</option>
+											<option value="RB">RB</option>
+											<option value="A">A</option>
+											<option value="B">B</option>
+											<option value="C">C</option>
+											<option value="D">D</option>
+											<option value="E">E</option>
+											<option value="F">F</option>
+											<option value="G">G</option>
+											<option value="H">H</option>
+											<option value="I">I</option>
+											<option value="J">J</option>
+											<option value="K">K</option>
+											<option value="L">L</option>
+											<option value="M">M</option>
+											<option value="N">N</option>
+											<option value="O">O</option>
+											<option value="P">P</option>
+											<option value="Q">Q</option>
+											<option value="R">R</option>
+											<option value="S">S</option>
+											<option value="T">T</option>
+											<option value="U">U</option>
+											<option value="V">V</option>
+											<option value="W">W</option>
+											<option value="X">X</option>
+											<option value="Y">Y</option>
+											<option value="Z">Z</option>
 										</select>
 									</td>
 									<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -101,22 +101,22 @@
 									<li>
 										<textarea id="question" rows=5 cols=100 placeholder="Add Comprehension Item Here"></textarea>
 										<br><br>
-									</li> 
+									</li>
 									<li>
 										<textarea id="answer" rows=3 cols=100 placeholder="Add Possible Answer(s) Here"></textarea>
 										<br><br>
 									</li>
 									<li>
 										 <select id="type_list" label="itemtype">
-										 	<option value="" selected disabled hidden>Choose Item Type</option>
-  											<option value="literal">Literal</option>
-  											<option value="inference">Inference</option>
-  											<option value="critical">Critical</option>
-  											<option value="creative">Creative</option>
-  											<option value="na">N/A</option>
-										</select> 
+											<option value="" selected disabled hidden>Choose Item Type</option>
+											<option value="literal">Literal</option>
+											<option value="inference">Inference</option>
+											<option value="critical">Critical</option>
+											<option value="creative">Creative</option>
+											<option value="na">N/A</option>
+										</select>
 										<br><br>
-									</li> 
+									</li>
 									<input type="submit" onclick="save_question()" value="Submit Item" class="button">
 								</ul>
 							</form>
@@ -142,12 +142,20 @@
 					var new_answer = $("#answer").val();
 					var type = $("#type_list").find(":selected").attr("value");
 
+                    var q_seq = localStorage["q_seq"];
+                    if(q_seq==null){
+                        q_seq = 0;
+                    }
+
 					q = {};
 					q["book_title"] = book_title;
 					q["question"] = new_question;
 					q["answer"] = new_answer;
 					q["type"] = type;
 					q["rating"] = Math.floor(Math.random() * (5 - 1 + 1)) + 1;;
+					q["vote_count"] = 1;
+					q["id"] = q_seq++;
+
 
 					var qstring = localStorage["questions"];
 					var questions = null;
@@ -165,9 +173,10 @@
 					book_questions.push(q);
 					questions[book_id] = book_questions;
 					localStorage.setItem("questions", JSON.stringify(questions));
+					localStorage.setItem("q_seq", q_seq);
 				}
 			</script>
-			
+
 
 	</body>
 </html>
